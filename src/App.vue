@@ -9,7 +9,7 @@ import Transaction from "./views/pages/Transaction.vue";
 
 <template>
   <body class="relative min-h-screen">
-    tes
+    jajajaja
     <NavigationBar />
     <!-- <Product /> -->
     <Transaction />
