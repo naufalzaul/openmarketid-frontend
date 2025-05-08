@@ -25,11 +25,35 @@ import { removeToken } from "@/utils/handleToken";
       <ul
         class="flex items-center justify-center gap-5 bg-white px-2.5 py-2 rounded-lg text-[15px]"
       >
-        <li class="bg-red-200 px-2.5 py-1 rounded">Dashboard</li>
-        <li class="px-2.5 py-1 rounded">Product</li>
-        <li class="px-2.5 py-1 rounded">Transaction</li>
-        <li class="px-2.5 py-1 rounded">Payment</li>
-        <li class="px-2.5 py-1 rounded">History</li>
+        <router-link
+          to="/"
+          class="px-2.5 py-1 rounded"
+          active-class="bg-red-200"
+        >
+          Dashboard
+        </router-link>
+        <router-link
+          to="/product"
+          class="px-2.5 py-1 rounded"
+          active-class="bg-red-200"
+        >
+          Product
+        </router-link>
+        <router-link
+          to="/transaction"
+          class="px-2.5 py-1 rounded"
+          active-class="bg-red-200"
+        >
+          Transaction
+        </router-link>
+        <router-link
+          to="/payment"
+          class="px-2.5 py-1 rounded"
+          active-class="bg-red-200"
+        >
+          Payment
+        </router-link>
+        <!-- <li class="px-2.5 py-1 rounded">History</li> -->
       </ul>
     </div>
     <div class="flex items-center justify-center gap-3 rounded-full">

@@ -2,6 +2,8 @@ import Dashboard from "@/views/pages/Dashboard.vue"
 import Login from "@/views/pages/Login.vue"
 import { getToken } from "@/utils/handleToken";
 import { createMemoryHistory, createRouter, createWebHistory } from "vue-router";
+import Product from "@/views/pages/Product.vue";
+import ProductControl from "../views/pages/ProductControl.vue";
 
 const routes = [
   {
@@ -14,6 +16,12 @@ const routes = [
     path: '/',
     name: "Dashboard",
     component: Dashboard,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/product',
+    name: "Product",
+    component: ProductControl,
     meta: { requiresAuth: true }
   },
 ]
