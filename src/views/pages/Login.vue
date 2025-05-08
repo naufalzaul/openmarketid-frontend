@@ -46,18 +46,21 @@
 <script setup>
 import { ref } from "vue";
 import { login } from "../../service/authService";
+import { createToken } from "../../utils/handleToken";
+import Dropdown from "../../components/Dropdown.vue";
+import router from "../../router/router";
 
 const email = ref("admin@gmail.com");
 const password = ref("admin");
 const errorMessage = ref("");
 const handleLogin = async () => {
   try {
-    const data = await login(email.value, password.value);
-    localStorage.setItem("token", data.token);
+    const { data } = await login(email.value, password.value);
+    createToken(data.token);
     alert("Login berhasil!");
-    // optional: redirect atau router.push('/dashboard')
+    router.push("/");
   } catch (error) {
-    errorMessage.value = "Login gagal. Periksa kembali email dan password.";
+    errorMessage.value = error.message;
     console.error(error);
   }
 };

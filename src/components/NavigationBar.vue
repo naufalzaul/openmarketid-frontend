@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import Dropdown from "./Dropdown.vue";
+import { removeToken } from "@/utils/handleToken";
+</script>
+
 <template>
   <div
     class="fixed top-0 left-0 right-0 flex items-center justify-center gap-2 backdrop-blur-2xl bg-transparent px-10 py-4"
@@ -54,14 +59,36 @@
           />
         </svg>
       </div>
-      <div class="">
-        <img
-          width="40"
-          class="rounded-full"
-          src="../assets/images/alex-suprun-ZHvM3XIOHoE-unsplash.jpg"
-          alt=""
-        />
-      </div>
+      <Dropdown>
+        <template #button>
+          <img
+            width="40"
+            class="rounded-full"
+            src="../assets/images/alex-suprun-ZHvM3XIOHoE-unsplash.jpg"
+            alt="Profile"
+          />
+        </template>
+
+        <template #menu>
+          <a
+            href="#"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            >Profile</a
+          >
+          <a
+            href="#"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            >Settings</a
+          >
+          <router-link
+            to="/login"
+            @click="removeToken()"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-t border-t-gray-300"
+          >
+            Logout
+          </router-link>
+        </template>
+      </Dropdown>
     </div>
   </div>
 </template>

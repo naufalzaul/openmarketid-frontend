@@ -1,20 +1,18 @@
 <script setup>
-import Footer from "./components/Footer.vue";
-import HelloWorld from "./components/HelloWorld.vue";
-import NavigationBar from "./components/NavigationBar.vue";
-import Dashboard from "./views/pages/Dashboard.vue";
-import Login from "./views/pages/Login.vue";
-import Product from "./views/pages/Product.vue";
-import Transaction from "./views/pages/Transaction.vue";
+import { useRoute } from "vue-router";
+import Footer from "@/components/Footer.vue";
+import NavigationBar from "@/components/NavigationBar.vue";
+import { computed } from "vue";
+
+const route = useRoute();
+const showLayout = computed(() => !route.meta.hideLayout);
 </script>
 
 <template>
   <body class="relative min-h-screen">
-    <Login />
-    <!-- <NavigationBar /> -->
-    <!-- <Product /> -->
-    <!-- <Transaction />
-    <Footer /> -->
+    <NavigationBar v-if="showLayout" />
+    <router-view />
+    <Footer v-if="showLayout" />
   </body>
 </template>
 
@@ -22,16 +20,4 @@ import Transaction from "./views/pages/Transaction.vue";
 body {
   background-color: rgba(226, 232, 240, 1);
 }
-/* .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-} */
 </style>

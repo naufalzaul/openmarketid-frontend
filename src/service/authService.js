@@ -6,6 +6,5 @@ export async function login(email, password) {
     email,
     password,
   });
-
-  return response.data; // pastikan hasilnya bisa di-handle di luar
+  return response.data;
 }
