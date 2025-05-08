@@ -3,17 +3,18 @@ import Footer from "./components/Footer.vue";
 import HelloWorld from "./components/HelloWorld.vue";
 import NavigationBar from "./components/NavigationBar.vue";
 import Dashboard from "./views/pages/Dashboard.vue";
+import Login from "./views/pages/Login.vue";
 import Product from "./views/pages/Product.vue";
 import Transaction from "./views/pages/Transaction.vue";
 </script>
 
 <template>
   <body class="relative min-h-screen">
-    jajajaja
-    <NavigationBar />
+    <Login />
+    <!-- <NavigationBar /> -->
     <!-- <Product /> -->
-    <Transaction />
-    <Footer />
+    <!-- <Transaction />
+    <Footer /> -->
   </body>
 </template>
 
