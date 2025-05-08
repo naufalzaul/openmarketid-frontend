@@ -1,14 +1,15 @@
-import Dashboard from "@/views/pages/Dashboard.vue"
-import Login from "@/views/pages/Login.vue"
+import Dashboard from "@/views/Dashboard.vue"
+import Login from "@/views/Login.vue"
 import { getToken } from "@/utils/handleToken";
 import { createMemoryHistory, createRouter, createWebHistory } from "vue-router";
-import Product from "@/views/pages/Product.vue";
-import ProductControl from "@/views/pages/ProductControl.vue";
+import Product from "@/views/Product.vue";
+import ProductControl from "@/views/ProductControl.vue";
 import ProductCreateForm from "@/components/ProductCreateForm.vue";
 import ProductUpdateForm from "@/components/ProductUpdateForm.vue";
-import CustomerControl from "@/views/pages/CustomerControl.vue";
+import CustomerControl from "@/views/CustomerControl.vue";
 import CustomerCreateForm from "@/components/CustomerCreateForm.vue";
 import CustomerUpdateForm from "@/components/CustomerUpdateForm.vue";
+import TransactionControl from "@/views/TransactionControl.vue";
 
 const routes = [
   {
@@ -57,6 +58,12 @@ const routes = [
     path: '/customers/update',
     name: "Customer Update Form",
     component: CustomerUpdateForm,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/transactions',
+    name: "Transaction",
+    component: TransactionControl,
     meta: { requiresAuth: true },
   },
 ]

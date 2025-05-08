@@ -46,13 +46,14 @@ import { removeToken } from "@/utils/handleToken";
         >
           Customer
         </router-link>
-        <!-- <router-link
+        <router-link
           to="/transactions"
           class="px-2.5 py-1 rounded"
           active-class="bg-red-200"
         >
           Transaction
         </router-link>
+        <!-- 
         <router-link
           to="/payments"
           class="px-2.5 py-1 rounded"

@@ -1,51 +1,18 @@
 <script setup>
 import { ref } from "vue";
-import { deleteProduct, getAllProducts } from "../../service/productService";
-import priceFormat from "../../utils/priceFormat";
+import { getAllTransactions } from "@/service/transactionService";
 import { useRouter } from "vue-router";
-import { useProductStore } from "../../stores/useProductStore";
+import decodeToken from "@/utils/decodeToken";
 
 const router = useRouter();
-const products = ref([]);
+const transactions = ref([]);
 
-const productStore = useProductStore();
-
+decodeToken();
 const getData = async () => {
   try {
-    const { data } = await getAllProducts();
-
-    const updatedProducts = data.map((item) => {
-      const taxNames = item.productTaxes
-        .map((pt) => pt?.description)
-        .filter(Boolean)
-        .join(", ");
-
-      const totalTax = item.productTaxes
-        .map((pt) => pt?.percentage || 0)
-        .reduce((acc, curr) => acc + curr, 0);
-
-      const priceAfterTax = item.price + (item.price * totalTax) / 100;
-
-      return {
-        ...item,
-        taxDescriptions: taxNames,
-        totalTaxPercentage: totalTax,
-        priceAfterTax: priceAfterTax,
-      };
-    });
-
-    products.value = updatedProducts;
-  } catch (error) {
-    errorMessage.value = error.message;
-    console.error(error);
-  }
-};
-
-const handleDelete = async (id) => {
-  try {
-    const { message } = await deleteProduct(id);
-    alert(message);
-    getData();
+    const { data } = await getAllTransactions();
+    transactions.value = data;
+    console.log(data);
   } catch (error) {
     errorMessage.value = error.message;
     console.error(error);
@@ -67,9 +34,9 @@ getData();
   <div class="min-h-screen p-10">
     <div class="bg-white p-5 rounded-lg shadow-lg">
       <div class="flex justify-between pb-4 mb-4">
-        <h1 class="text-xl font-medium">Daftar Produk</h1>
+        <h1 class="text-xl font-medium">Daftar Transaction</h1>
         <button
-          @click="router.push({ name: 'Product Create Form' })"
+          @click="router.push({ name: 'Transaction Create Form' })"
           class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4"
         >
           Create
@@ -77,7 +44,7 @@ getData();
       </div>
 
       <div class="overflow-x-auto">
-        <table
+        <!-- <table
           class="w-full table-fixed text-center border rounded-lg overflow-hidden"
         >
           <thead class="bg-gray-100 text-gray-700 uppercase">
@@ -124,13 +91,13 @@ getData();
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
 
         <div
-          v-if="products.length === 0"
+          v-if="transactions.length === 0"
           class="text-center py-10 text-gray-500"
         >
-          Tidak ada data produk.
+          Tidak ada data transaction.
         </div>
       </div>
     </div>

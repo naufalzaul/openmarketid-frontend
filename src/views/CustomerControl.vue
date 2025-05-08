@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from "vue";
-import { deleteCustomer, getAllCustomers } from "../../service/customerService";
-import dateFormat from "../../utils/dateFormat";
+import { deleteCustomer, getAllCustomers } from "../service/customerService";
+import dateFormat from "../utils/dateFormat";
 import { useRouter } from "vue-router";
-import { useCustomerStore } from "../../stores/useCustomerStore";
+import { useCustomerStore } from "../stores/useCustomerStore";
 
 const router = useRouter();
 const customers = ref([]);

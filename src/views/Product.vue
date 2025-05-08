@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import { getAllProducts } from "../../service/productService";
-import priceFormat from "../../utils/priceFormat";
+import { getAllProducts } from "../service/productService";
+import priceFormat from "../utils/priceFormat";
 const products = ref([]);
 
 const getData = async () => {

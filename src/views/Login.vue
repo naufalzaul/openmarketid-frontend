@@ -1,3 +1,25 @@
+<script setup>
+import { ref } from "vue";
+import { login } from "../service/authService";
+import { createToken } from "../utils/handleToken";
+import router from "../router/router";
+
+const email = ref("admin@gmail.com");
+const password = ref("admin");
+const errorMessage = ref("");
+const handleLogin = async () => {
+  try {
+    const { data } = await login(email.value, password.value);
+    createToken(data.token);
+    alert("Login berhasil!");
+    router.push("/");
+  } catch (error) {
+    errorMessage.value = error.message;
+    console.error(error);
+  }
+};
+</script>
+
 <template>
   <div class="flex min-h-screen items-center justify-center bg-gray-100">
     <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
@@ -42,26 +64,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from "vue";
-import { login } from "../../service/authService";
-import { createToken } from "../../utils/handleToken";
-import Dropdown from "../../components/Dropdown.vue";
-import router from "../../router/router";
-
-const email = ref("admin@gmail.com");
-const password = ref("admin");
-const errorMessage = ref("");
-const handleLogin = async () => {
-  try {
-    const { data } = await login(email.value, password.value);
-    createToken(data.token);
-    alert("Login berhasil!");
-    router.push("/");
-  } catch (error) {
-    errorMessage.value = error.message;
-    console.error(error);
-  }
-};
-</script>
