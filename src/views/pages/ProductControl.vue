@@ -1,14 +1,55 @@
 <script setup>
 import { ref } from "vue";
-import { getAllProducts } from "../../service/ProductService";
+import {
+  deleteProduct,
+  getAllProducts,
+  updateProduct,
+} from "../../service/ProductService";
 import priceFormat from "../../utils/priceFormat";
+import { useRouter } from "vue-router";
+import { useProductStore } from "../../stores/useProductStore";
+
+const router = useRouter();
 const products = ref([]);
+
+const productStore = useProductStore();
 
 const getData = async () => {
   try {
     const { data } = await getAllProducts();
-    products.value = data;
-    console.log(data);
+
+    const updatedProducts = data.map((item) => {
+      const taxNames = item.productTaxes
+        .map((pt) => pt?.description)
+        .filter(Boolean)
+        .join(", ");
+
+      const totalTax = item.productTaxes
+        .map((pt) => pt?.percentage || 0)
+        .reduce((acc, curr) => acc + curr, 0);
+
+      const priceAfterTax = item.price + (item.price * totalTax) / 100;
+
+      return {
+        ...item,
+        taxDescriptions: taxNames,
+        totalTaxPercentage: totalTax,
+        priceAfterTax: priceAfterTax,
+      };
+    });
+
+    products.value = updatedProducts;
+  } catch (error) {
+    errorMessage.value = error.message;
+    console.error(error);
+  }
+};
+
+const handleDelete = async (id) => {
+  try {
+    const { message } = await deleteProduct(id);
+    alert(message);
+    getData();
   } catch (error) {
     errorMessage.value = error.message;
     console.error(error);
@@ -26,52 +67,64 @@ getData();
       provident?
     </p>
   </div>
+
   <div class="min-h-screen p-10">
-    <div class="bg-white p-5 mb-20 rounded-lg shadow-lg">
-      <div class="font-medium text-xl border-b pb-4">
-        <h1>Ini untuk list produk</h1>
+    <div class="bg-white p-5 rounded-lg shadow-lg">
+      <div class="flex justify-between pb-4 mb-4">
+        <h1 class="text-xl font-medium">Daftar Produk</h1>
+        <button
+          @click="router.push({ name: 'Product Create Form' })"
+          class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4"
+        >
+          Create
+        </button>
       </div>
 
-      <div class="overflow-auto mt-5">
-        <table class="min-w-full table-auto border border-gray-200">
-          <thead
-            class="bg-gray-100 text-left text-sm font-semibold text-gray-700"
-          >
+      <div class="overflow-x-auto">
+        <table
+          class="w-full table-fixed text-center border rounded-lg overflow-hidden"
+        >
+          <thead class="bg-gray-100 text-gray-700 uppercase">
             <tr>
-              <th class="px-4 py-2 border">No</th>
-              <th class="px-4 py-2 border">Nama</th>
-              <th class="px-4 py-2 border">Harga</th>
-              <th class="px-4 py-2 border">Diskon</th>
-              <th class="px-4 py-2 border">Aksi</th>
+              <th class="py-3 px-4">No</th>
+              <th class="py-3 px-4">Nama Produk</th>
+              <th class="py-3 px-4">Harga Asli</th>
+              <th class="py-3 px-4">Pajak</th>
+              <th class="py-3 px-4">Total Pajak</th>
+              <th class="py-3 px-4">Harga</th>
+              <th class="py-3 px-4">Aksi</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="text-gray-600">
             <tr
               v-for="(product, index) in products"
-              :key="index"
-              class="border-b text-sm text-gray-800"
+              :key="product.index"
+              class="hover:bg-gray-50 transition-colors"
             >
-              <td class="px-4 py-2 border">{{ index + 1 }}</td>
-              <td class="px-4 py-2 border">{{ product.name }}</td>
-              <td class="px-4 py-2 border">{{ priceFormat(product.price) }}</td>
-              <td class="px-4 py-2 border">
-                {{ priceFormat(product.discountedPrice) }}
+              <td class="py-3 px-4">{{ index + 1 }}</td>
+              <td class="py-3 px-4">{{ product.name }}</td>
+              <td class="py-3 px-4">{{ priceFormat(product.price) }}</td>
+              <td class="py-3 px-4">{{ product.taxDescriptions }}</td>
+              <td class="py-3 px-4">{{ product.totalTaxPercentage }}</td>
+              <td class="py-3 px-4">
+                {{ priceFormat(product.priceAfterTax) }}
               </td>
-              <td class="px-4 py-2 border">
-                <div class="flex gap-2">
-                  <button
-                    class="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-500"
-                    @click="handleEdit(product)"
-                  >
-                    Update
-                  </button>
-                  <button
-                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                    @click="handleDelete(product.id)"
-                  >
-                    Delete
-                  </button>
-                </div>
+              <td class="py-3 px-4 space-x-2">
+                <button
+                  @click="
+                    productStore.setProduct(product);
+                    router.push({ name: 'Product Update Form' });
+                  "
+                  class="bg-yellow-400 hover:bg-yellow-500 text-white text-sm px-3 py-1 rounded-md shadow-sm"
+                >
+                  Update
+                </button>
+                <button
+                  @click="handleDelete(product.id)"
+                  class="bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1 rounded-md shadow-sm"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           </tbody>

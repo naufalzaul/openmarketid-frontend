@@ -1,6 +1,4 @@
 export const createToken = (token) => {
-  console.log(token);
-
   return localStorage.setItem("token", token) || null;
 }
 
