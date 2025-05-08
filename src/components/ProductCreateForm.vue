@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { getAllTaxes } from "@/service/taxService";
-import { createProduct } from "@/service/ProductService";
+import { createProduct } from "@/service/productService";
 import { useRouter } from "vue-router";
 
 const formRef = ref(null);

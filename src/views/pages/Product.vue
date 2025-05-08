@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { getAllProducts } from "../../service/ProductService";
+import { getAllProducts } from "../../service/productService";
 import priceFormat from "../../utils/priceFormat";
 const products = ref([]);
 

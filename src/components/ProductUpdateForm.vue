@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { getAllTaxes } from "@/service/taxService";
-import { createProduct, updateProduct } from "@/service/ProductService";
+import { createProduct, updateProduct } from "@/service/productService";
 import { useRouter } from "vue-router";
 import { useProductStore } from "@/stores/useProductStore";
 
@@ -75,7 +75,6 @@ getDataTaxes();
 
 <template>
   <div class="p-10 pt-32">
-    <h1 class="text-xl font-semibold mb-4">Create New Product</h1>
     <form class="w-1/2" ref="formRef" @submit.prevent="handleSubmit">
       <div class="space-y-12">
         <div class="border-b border-gray-900/10 pb-12">

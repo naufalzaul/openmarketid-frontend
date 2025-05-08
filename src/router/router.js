@@ -3,9 +3,12 @@ import Login from "@/views/pages/Login.vue"
 import { getToken } from "@/utils/handleToken";
 import { createMemoryHistory, createRouter, createWebHistory } from "vue-router";
 import Product from "@/views/pages/Product.vue";
-import ProductControl from "../views/pages/ProductControl.vue";
-import ProductCreateForm from "../components/ProductCreateForm.vue";
-import ProductUpdateForm from "../components/ProductUpdateForm.vue";
+import ProductControl from "@/views/pages/ProductControl.vue";
+import ProductCreateForm from "@/components/ProductCreateForm.vue";
+import ProductUpdateForm from "@/components/ProductUpdateForm.vue";
+import CustomerControl from "@/views/pages/CustomerControl.vue";
+import CustomerCreateForm from "@/components/CustomerCreateForm.vue";
+import CustomerUpdateForm from "@/components/CustomerUpdateForm.vue";
 
 const routes = [
   {
@@ -21,21 +24,39 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/product',
+    path: '/products',
     name: "Product",
     component: ProductControl,
     meta: { requiresAuth: true }
   },
   {
-    path: '/product/create',
+    path: '/products/create',
     name: "Product Create Form",
     component: ProductCreateForm,
     meta: { requiresAuth: true },
   },
   {
-    path: '/product/update',
+    path: '/products/update',
     name: "Product Update Form",
     component: ProductUpdateForm,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/customers',
+    name: "Customer",
+    component: CustomerControl,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/customers/create',
+    name: "Customer Create Form",
+    component: CustomerCreateForm,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/customers/update',
+    name: "Customer Update Form",
+    component: CustomerUpdateForm,
     meta: { requiresAuth: true },
   },
 ]

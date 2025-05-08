@@ -33,27 +33,33 @@ import { removeToken } from "@/utils/handleToken";
           Dashboard
         </router-link>
         <router-link
-          to="/product"
+          to="/products"
           class="px-2.5 py-1 rounded"
           active-class="bg-red-200"
         >
           Product
         </router-link>
         <router-link
-          to="/transaction"
+          to="/customers"
+          class="px-2.5 py-1 rounded"
+          active-class="bg-red-200"
+        >
+          Customer
+        </router-link>
+        <!-- <router-link
+          to="/transactions"
           class="px-2.5 py-1 rounded"
           active-class="bg-red-200"
         >
           Transaction
         </router-link>
         <router-link
-          to="/payment"
+          to="/payments"
           class="px-2.5 py-1 rounded"
           active-class="bg-red-200"
         >
           Payment
-        </router-link>
-        <!-- <li class="px-2.5 py-1 rounded">History</li> -->
+        </router-link> -->
       </ul>
     </div>
     <div class="flex items-center justify-center gap-3 rounded-full">
